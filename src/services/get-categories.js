@@ -4,10 +4,10 @@ import dbConnect from "../lib/database";
 export default async function getCategories() {
   await dbConnect();
 
-  const data = await Category.find();
-  return data.map(({ id, content, user }) => ({
+  const categories = await Category.find();
+  return categories.map(({ id, content, name }) => ({
     id,
     content,
-    name: category.name,
+    name,
   }));
 }

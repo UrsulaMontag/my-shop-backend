@@ -1,7 +1,12 @@
-import { getCards } from "../../src/services/get-cards";
+export default function handler(req, res) {
+  if (req.method === "POST") {
+    const newCategory = JSON.parse(req.body);
 
-export default async function handler(req, res) {
-  const cards = await getCards();
-
-  res.status(200).json(cards);
+    res.status(200).json({
+      message: "category created",
+      product: newCategory,
+    });
+  } else {
+    res.status(400).json({ error: "wrong method" });
+  }
 }

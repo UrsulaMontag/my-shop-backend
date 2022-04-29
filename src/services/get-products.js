@@ -5,9 +5,11 @@ export default async function getProducts() {
   await dbConnect();
 
   const data = await Product.find().populate("category");
-  return data.map(({ id, content, user }) => ({
+  return data.map(({ id, content, name, category, price }) => ({
     id,
     content,
-    name: category.name,
+    name,
+    category,
+    price,
   }));
 }

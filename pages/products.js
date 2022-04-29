@@ -6,7 +6,9 @@ export function getStaticProps() {
 
   return {
     props: {
-      products,
+      fallback: {
+        "api/products": products,
+      },
     },
   };
 }

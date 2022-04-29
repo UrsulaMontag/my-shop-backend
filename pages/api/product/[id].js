@@ -2,14 +2,12 @@ import Product from "../../../src/models/Product";
 
 export default async function handler(req, res) {
   const { id } = req.query;
-  /*  const cards = getCards();
-  const singleCard = cards.find((card) => card.id === id); */
 
   if (req.method === "DELETE") {
     const deletedProduct = await Product.findByIdAndDelete(id);
     res.status(200).json({
-      message: "card deleted",
-      card: deletedCard,
+      message: "product deleted",
+      product: deletedProduct,
     });
   } else {
     const singleProduct = await Product.findById(id);
