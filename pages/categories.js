@@ -4,7 +4,9 @@ import CategoryGrid from "../src/components/CategoryGrid";
 export function getStaticProps() {
   const categories = getCategories();
   return {
-    props: { categories },
+    props: {
+      categories,
+    },
   };
 }
 

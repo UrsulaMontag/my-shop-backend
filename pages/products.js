@@ -5,7 +5,9 @@ export function getStaticProps() {
   const products = getProducts();
 
   return {
-    props: { products },
+    props: {
+      products,
+    },
   };
 }
 

@@ -1,4 +1,4 @@
-import Product from "./Category";
+import Category from "./Category";
 
 export default function CategoryGrid({ categories }) {
   return (
@@ -6,7 +6,7 @@ export default function CategoryGrid({ categories }) {
       {categories.map((category) => {
         return (
           <li key={category.id}>
-            <Product name={category.name} description={category.description} />
+            <Category name={category.name} description={category.description} />
           </li>
         );
       })}
