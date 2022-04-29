@@ -47,8 +47,13 @@ function ProductModeShow({
       </ul>
       <div>
         <button
-          onClick={() => {
-            console.log("Delete product", id, name);
+          size="small"
+          onClick={async () => {
+            const response = await fetch("/api/card/" + id, {
+              method: "DELETE",
+            });
+            console.log(await response.json());
+            mutate("/api/cards");
           }}
         >
           Delete

@@ -1,5 +1,13 @@
-import data from "./products.json";
+import Product from "../models/Product";
+import dbConnect from "../lib/database";
 
-export default function getProducts() {
-  return data;
+export default async function getProducts() {
+  await dbConnect();
+
+  const data = await Product.find().populate("category");
+  return data.map(({ id, content, user }) => ({
+    id,
+    content,
+    name: category.name,
+  }));
 }
