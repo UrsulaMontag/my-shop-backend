@@ -10,13 +10,13 @@ export default function Category({ id, name, description }) {
 
       <div>
         <button
-          onClick={() => {
-            console.log("Delete Category", id, name);
-          }}
+        //   onClick={() => {
+        //     console.log("Delete Category", id, name);
+        //   }}
         >
           Delete
         </button>
-        <button onClick={onEnableDeleteMode}>Edit</button>
+        <button>Edit</button>
       </div>
     </div>
   );

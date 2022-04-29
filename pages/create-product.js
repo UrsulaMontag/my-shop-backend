@@ -1,7 +1,7 @@
 export default function CreatePruduct() {
   return (
     <>
-      <h1>Kategorien</h1>
+      <h1>Erstelle ein Produkt</h1>
     </>
   );
 }
