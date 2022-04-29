@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export default function Product(props) {
+  const [isEditMode, setIsEditMode] = useState(false);
   const [isDeleteMode, setDeleteMode] = useState(false);
 
   function enableDeleteMode() {
