@@ -18,6 +18,6 @@ export default function Products({ fallback }) {
     <SWRConfig>
       <h1>Produkte</h1>
       <ProductGrid products={products} />
-    </>
+    </SWRConfig>
   );
 }
