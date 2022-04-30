@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Garnele",
+    "description": "Lebt bevorzugt paarweise",
+    "tags": ["paarweise", "gesellig"],
+    "price": 19,
+    "category": "626a485c916f633a190f024c"
+  },
+  {
+    "name": "Anemonenfisch",
+    "description": "Nemo",
+    "tags": ["gesellig", "highlight"],
+    "price": 65,
+    "category": "626a47d8916f633a190f0246"
+  },
+  {
+    "name": "Pracht-Anemone",
+    "description": "Ist prächtig",
+    "tags": ["prächtig", "reflektierend"],
+    "price": 90,
+    "category": "626a4835916f633a190f024a"
+  },
+  {
+    "name": "Mördermuschel",
+    "description": "Ist hübscher als ihr Name",
+    "tags": ["schillernd"],
+    "price": 125,
+    "category": "626a4811916f633a190f0248"
+  },
+  {
+    "name": "Kaiserfisch",
+    "description": "Ein tagaktiver Einzelgänger",
+    "tags": ["Einzelgänger"],
+    "price": 90,
+    "category": "626a47d8916f633a190f0246"
+  },
+  {
+    "name": "Guppy",
+    "description": "Klein aber fein",
+    "tags": ["Mengenrabatt"],
+    "price": 5,
+    "category": "626a46ea916f633a190f0244"
+  },
+  {
+    "name": "Regenbogenfisch",
+    "description": "In allen Farben",
+    "tags": ["gesellig", "rot", "grün", "blau"],
+    "price": 12,
+    "category": "626a46ea916f633a190f0244"
+  }
+]

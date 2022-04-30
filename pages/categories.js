@@ -1,11 +1,15 @@
 import getCategories from "../src/services/get-categories";
 import CategoryGrid from "../src/components/CategoryGrid";
+import { SWRConfig } from "swr";
+import { swrFetcher } from "../src/lib/swr-fetcher";
 
 export function getStaticProps() {
   const categories = getCategories();
   return {
     props: {
-      categories,
+      fallback: {
+        "api/categories": categories,
+      },
     },
   };
 }
