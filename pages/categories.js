@@ -18,7 +18,7 @@ export default function Categories({ fallback }) {
   return (
     <SWRConfig value={{ fetcher: swrFetcher, fallback }}>
       <h1>Kategorien</h1>
-      <CategoryGrid categories={fallback} />
+      <CategoryGrid />
     </SWRConfig>
   );
 }

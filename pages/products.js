@@ -11,7 +11,7 @@ export async function getStaticProps() {
       fallback: {
         // folgende Daten (aus lokaler JSON Datei) sollen als Fallback genutzt werden, wenn über Server folgende Route anfragt wird
         // (wenn über Browser Anfrage stattfindet, dann sollen Daten von der API geladen werden)
-        "api/products": products,
+        "api/products": [],
       },
     },
   };
@@ -21,7 +21,7 @@ export default function Products({ fallback }) {
   return (
     <SWRConfig value={{ fetcher: swrFetcher, fallback }}>
       <h1>Produkte</h1>
-      <ProductGrid products={fallback} />
+      <ProductGrid />
     </SWRConfig>
   );
 }

@@ -6,10 +6,10 @@ export default async function getProducts() {
 
   const products = await Product.find().populate("category");
 
-  return products.map(({ id, content, name, category, price }) => {
+  return products.map(({ id, description, name, category, price }) => {
     return {
       id,
-      content,
+      description,
       name,
       category,
       price,
