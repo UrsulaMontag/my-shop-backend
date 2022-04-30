@@ -1,23 +1,24 @@
 import { useState } from "react";
+import { useSWRConfig } from "swr";
 
 export default function Product(props) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isDeleteMode, setDeleteMode] = useState(false);
 
-  function enableDeleteMode() {
+  function enableEditMode() {
     setIsEditMode(true);
   }
 
-  function disableDeleteMode() {
+  function enableDeleteMode() {
     setDeleteMode(false);
   }
 
   return (
     <div>
       {isDeleteMode ? (
-        <ProductModeEdit {...props} onDisableDeleteMode={disableDeleteMode} />
+        <ProductModeEdit {...props} onDisableDeleteMode={enableDeleteMode} />
       ) : (
-        <ProductModeShow {...props} onEnableDeleteMode={enableDeleteMode} />
+        <ProductModeShow {...props} onEnableEditMode={enableEditMode} />
       )}
     </div>
   );
@@ -30,7 +31,7 @@ function ProductModeShow({
   tags,
   price,
   category,
-  onEnableDeleteMode,
+  onEnableEditMode,
 }) {
   return (
     <div>
@@ -58,7 +59,7 @@ function ProductModeShow({
         >
           Delete
         </button>
-        <button onClick={onEnableDeleteMode}>Edit</button>
+        <button onClick={onEnableEditMode}>Edit</button>
       </div>
     </div>
   );
@@ -73,6 +74,27 @@ function ProductModeEdit({
   category,
   onDisableDeleteMode,
 }) {
+  const [nameValue, setNameValue] = useState(name);
+  const [contentValue, setContentValue] = useState(content);
+  const { mutate } = useSWRConfig();
+
+  async function submit(event) {
+    event.preventDefault();
+
+    const response = await fetch("/api/card/" + id, {
+      method: "PUT",
+      // body object zu JSON String machen
+      body: JSON.stringify({
+        content: contentValue,
+        name: nameValue,
+      }),
+    });
+    console.log(await response.json());
+    mutate("/api/cards");
+
+    onDisableDeleteMode();
+  }
+
   return (
     <div>
       <div>

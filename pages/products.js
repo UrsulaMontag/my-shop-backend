@@ -1,5 +1,7 @@
 import getProducts from "../src/services/get-products";
 import ProductGrid from "../src/components/ProductGrid";
+import { SWRConfig } from "swr";
+import { swrFetcher } from "../src/lib/swr-fetcher";
 
 export async function getStaticProps() {
   const products = await getProducts();
@@ -7,7 +9,9 @@ export async function getStaticProps() {
   return {
     props: {
       fallback: {
-        "api/products": products,
+        // folgende Daten (aus lokaler JSON Datei) sollen als Fallback genutzt werden, wenn über Server folgende Route anfragt wird
+        // (wenn über Browser Anfrage stattfindet, dann sollen Daten von der API geladen werden)
+        "api/products": [],
       },
     },
   };
@@ -15,9 +19,9 @@ export async function getStaticProps() {
 
 export default function Products({ fallback }) {
   return (
-    <SWRConfig>
+    <SWRConfig value={{ fetcher: swrFetcher, fallback }}>
       <h1>Produkte</h1>
-      <ProductGrid products={products} />
-    </>
+      <ProductGrid />
+    </SWRConfig>
   );
 }
