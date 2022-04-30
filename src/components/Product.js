@@ -72,7 +72,7 @@ function ProductModeEdit({
   tags,
   price,
   category,
-  onEnableDeleteMode,
+  onDisableDeleteMode,
 }) {
   const [nameValue, setNameValue] = useState(name);
   const [contentValue, setContentValue] = useState(content);
@@ -92,7 +92,7 @@ function ProductModeEdit({
     console.log(await response.json());
     mutate("/api/cards");
 
-    onEnableDeleteMode();
+    onDisableDeleteMode();
   }
 
   return (
@@ -116,7 +116,7 @@ function ProductModeEdit({
         >
           Abbrechen
         </button>
-        <button onClick={onEnableDeleteMode}>Wirklich löschen</button>
+        <button onClick={onDisableDeleteMode}>Wirklich löschen</button>
       </div>
     </div>
   );

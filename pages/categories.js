@@ -3,8 +3,8 @@ import CategoryGrid from "../src/components/CategoryGrid";
 import { SWRConfig } from "swr";
 import { swrFetcher } from "../src/lib/swr-fetcher";
 
-export function getStaticProps() {
-  const categories = getCategories();
+export async function getStaticProps() {
+  const categories = await getCategories();
   return {
     props: {
       fallback: {
@@ -14,11 +14,11 @@ export function getStaticProps() {
   };
 }
 
-export default function Categories({ categories }) {
+export default function Categories({ fallback }) {
   return (
-    <>
+    <SWRConfig value={{ fetcher: swrFetcher, fallback }}>
       <h1>Kategorien</h1>
-      <CategoryGrid categories={categories} />
-    </>
+      <CategoryGrid categories={fallback} />
+    </SWRConfig>
   );
 }

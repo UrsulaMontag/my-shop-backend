@@ -6,7 +6,6 @@ export default function Header() {
       <Link href="/products" passHref>
         Produkte
       </Link>
-
       <Link href="/categories" passHref>
         Kategorien
       </Link>

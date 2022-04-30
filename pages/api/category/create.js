@@ -4,7 +4,7 @@ export default function handler(req, res) {
 
     res.status(200).json({
       message: "category created",
-      product: newCategory,
+      category: newCategory,
     });
   } else {
     res.status(400).json({ error: "wrong method" });
