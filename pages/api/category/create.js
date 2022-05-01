@@ -1,10 +1,19 @@
-export default function handler(req, res) {
+import { dbConnect } from "../../../src/lib/database";
+import Category from "../../../src/models/Category";
+
+export default async function handler(req, res) {
   if (req.method === "POST") {
-    const newCategory = JSON.parse(req.body);
+    const newCategoryData = JSON.parse(req.body);
+    await dbConnect();
+
+    const newCategory = await Category.create({
+      name: newCategoryData.name,
+      description: newCategoryData.description,
+    });
 
     res.status(200).json({
       message: "category created",
-      category: newCategory,
+      category: newCategoryData,
     });
   } else {
     res.status(400).json({ error: "wrong method" });

@@ -9,11 +9,12 @@ export default function ProductGrid() {
   }
 
   return (
-    <>
+    <ul>
       {data.map((product) => {
         return (
           <li key={product.id}>
             <Product
+              id={product.id}
               name={product.name}
               description={product.description}
               price={product.price}
@@ -23,6 +24,6 @@ export default function ProductGrid() {
           </li>
         );
       })}
-    </>
+    </ul>
   );
 }

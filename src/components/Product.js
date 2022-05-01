@@ -1,24 +1,34 @@
 import { useState } from "react";
-import { useSWRConfig } from "swr";
+import { mutate } from "swr";
 
 export default function Product(props) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isDeleteMode, setDeleteMode] = useState(false);
+  const [isReallyDeleteMode, setRealyDeleteMode] = useState(false);
 
   function enableEditMode() {
     setIsEditMode(true);
   }
 
   function enableDeleteMode() {
-    setDeleteMode(false);
+    setDeleteMode(!isDeleteMode);
   }
 
   return (
     <div>
       {isDeleteMode ? (
-        <ProductModeEdit {...props} onDisableDeleteMode={enableDeleteMode} />
+        <ProductModeConfirmation
+          {...props}
+          onDisableDeleteMode={enableDeleteMode}
+          isReallyDeleteMode={isReallyDeleteMode}
+        />
       ) : (
-        <ProductModeShow {...props} onEnableEditMode={enableEditMode} />
+        <ProductModeShow
+          {...props}
+          onEnableEditMode={enableEditMode}
+          isDeleteMode={isDeleteMode}
+          onDisableDeleteMode={enableDeleteMode}
+        />
       )}
     </div>
   );
@@ -32,6 +42,8 @@ function ProductModeShow({
   price,
   category,
   onEnableEditMode,
+  onDisableDeleteMode,
+  isDeleteMode,
 }) {
   return (
     <div>
@@ -44,28 +56,31 @@ function ProductModeShow({
         <p>{category}</p>
       </div>
       <ul>
-        <li>{tags}</li>
+        {tags.map((tag, index) => {
+          return (
+            <div key={index}>
+              <li>{tag}</li>
+            </div>
+          );
+        })}
       </ul>
       <div>
         <button
           size="small"
-          onClick={async () => {
-            const response = await fetch("/api/card/" + id, {
-              method: "DELETE",
-            });
-            console.log(await response.json());
-            mutate("/api/cards");
+          onClick={() => {
+            onDisableDeleteMode();
+            console.log(isDeleteMode);
           }}
         >
-          Delete
+          Löschen
         </button>
-        <button onClick={onEnableEditMode}>Edit</button>
+        <button onClick={onEnableEditMode}>Editieren</button>
       </div>
     </div>
   );
 }
 
-function ProductModeEdit({
+function ProductModeConfirmation({
   id,
   name,
   description,
@@ -74,27 +89,6 @@ function ProductModeEdit({
   category,
   onDisableDeleteMode,
 }) {
-  const [nameValue, setNameValue] = useState(name);
-  const [contentValue, setContentValue] = useState(content);
-  const { mutate } = useSWRConfig();
-
-  async function submit(event) {
-    event.preventDefault();
-
-    const response = await fetch("/api/card/" + id, {
-      method: "PUT",
-      // body object zu JSON String machen
-      body: JSON.stringify({
-        content: contentValue,
-        name: nameValue,
-      }),
-    });
-    console.log(await response.json());
-    mutate("/api/cards");
-
-    onDisableDeleteMode();
-  }
-
   return (
     <div>
       <div>
@@ -106,17 +100,29 @@ function ProductModeEdit({
         <p>{category}</p>
       </div>
       <ul>
-        <li>{tags}</li>
+        {tags.map((tag, index) => {
+          return (
+            <div key={index}>
+              <li>{tag}</li>
+            </div>
+          );
+        })}
       </ul>
       <div>
         <button
-          onClick={() => {
-            console.log("Delete product", id, name);
+          type="button"
+          size="small"
+          onClick={async () => {
+            const response = await fetch("/api/product/" + id, {
+              method: "DELETE",
+            });
+            console.log(await response.json());
+            mutate("/api/products");
           }}
         >
-          Abbrechen
+          Wirklich löschen
         </button>
-        <button onClick={onDisableDeleteMode}>Wirklich löschen</button>
+        <button onClick={onDisableDeleteMode}>Abbrechen</button>
       </div>
     </div>
   );

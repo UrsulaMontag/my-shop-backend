@@ -41,7 +41,10 @@ export default function ProductCreateForm() {
           label="name"
           value={productInput.nameValue}
           onChange={(event) => {
-            setProductInput({ nameValue: event.target.value });
+            setProductInput({
+              ...productInput,
+              nameValue: event.target.value,
+            });
             // setProductInput((prevState) => ({
             //   productInput: {
             //     // object that we want to update

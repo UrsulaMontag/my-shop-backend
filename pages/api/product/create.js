@@ -7,10 +7,10 @@ export default async function handler(req, res) {
     const newProductData = JSON.parse(req.body);
     await dbConnect();
 
-    let category = await Category.findOne({ name: newProductData.name });
-    if (!category) {
-      category = await Category.create({ name: newProductData.name });
-    }
+    let category = await Category.findOne({ id: newProductData.category });
+    // if (!category) {
+    //   category = await Category.create({ name: newProductData.category });
+    // }
 
     const newProduct = await Product.create({
       name: newProductData.name,
