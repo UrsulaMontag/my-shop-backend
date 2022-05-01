@@ -8,7 +8,7 @@ export default function CategoryGrid() {
     return <h3>Error: {error.message}</h3>;
   }
   return (
-    <>
+    <ul>
       {data.map((category) => {
         return (
           <li key={category.id}>
@@ -16,6 +16,6 @@ export default function CategoryGrid() {
           </li>
         );
       })}
-    </>
+    </ul>
   );
 }
