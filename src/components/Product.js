@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { mutate } from "swr";
+import { useRouter } from "next/router";
 
 export default function Product(props) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isDeleteMode, setDeleteMode] = useState(false);
-  const [isReallyDeleteMode, setRealyDeleteMode] = useState(false);
 
   function enableEditMode() {
     setIsEditMode(true);
@@ -20,7 +20,6 @@ export default function Product(props) {
         <ProductModeConfirmation
           {...props}
           onDisableDeleteMode={enableDeleteMode}
-          isReallyDeleteMode={isReallyDeleteMode}
         />
       ) : (
         <ProductModeShow
@@ -45,6 +44,8 @@ function ProductModeShow({
   onDisableDeleteMode,
   isDeleteMode,
 }) {
+  const router = useRouter();
+
   return (
     <div>
       <div>
@@ -74,7 +75,16 @@ function ProductModeShow({
         >
           Löschen
         </button>
-        <button onClick={onEnableEditMode}>Editieren</button>
+        <button
+          onClick={() => {
+            router.push({
+              pathname: "/create-product",
+              query: { curry: name },
+            });
+          }}
+        >
+          Editieren
+        </button>
       </div>
     </div>
   );

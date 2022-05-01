@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import useSWR from "swr";
 
 const initialState = {
   descriptionValue: "",
@@ -9,11 +10,15 @@ const initialState = {
   categoryValue: "",
 };
 
-export default function ProductCreateForm() {
+export default function ProductCreateForm({ curry }) {
   const [productInput, setProductInput] = useState(initialState);
-
+  const { data, error } = useSWR("api/categories");
   const router = useRouter();
 
+  if (error) {
+    return <h3>Error: {error.message}</h3>;
+  }
+  console.log(curry);
   const submit = async (event) => {
     event.preventDefault();
 
@@ -120,7 +125,7 @@ export default function ProductCreateForm() {
     </>
   );
 }
-/* <input required id="categoryList" list="category" name="categoryList" />
+/*  <input required id="categoryList" list="category" name="categoryList" />
 
         <datalist
           id="category"
@@ -132,11 +137,11 @@ export default function ProductCreateForm() {
             });
           }}
         >
-          {categoryArray.map((category) => {
+          {data.map((category) => {
             return (
-              <>
-                <option value={category.name} key={category.id} />
-              </>
+              <div key={category.id}>
+                <option value={category.name} />
+              </div>
             );
           })}
         </datalist>
