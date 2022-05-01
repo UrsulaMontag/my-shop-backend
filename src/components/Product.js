@@ -44,7 +44,13 @@ function ProductModeShow({
         <p>{category}</p>
       </div>
       <ul>
-        <li>{tags}</li>
+        {tags.map((tag, index) => {
+          return (
+            <>
+              <li key={index}>{tag}</li>
+            </>
+          );
+        })}
       </ul>
       <div>
         <button

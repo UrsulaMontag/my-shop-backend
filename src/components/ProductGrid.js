@@ -9,7 +9,7 @@ export default function ProductGrid() {
   }
 
   return (
-    <>
+    <ul>
       {data.map((product) => {
         return (
           <li key={product.id}>
@@ -23,6 +23,6 @@ export default function ProductGrid() {
           </li>
         );
       })}
-    </>
+    </ul>
   );
 }
