@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { mutate, useSWRConfig } from "swr";
 import { useRouter } from "next/router";
+import Product from "../models/Product";
 
 export default function Category(props) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isDeleteMode, setDeleteMode] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   function enableEditMode() {
     setIsEditMode(true);
@@ -14,19 +16,27 @@ export default function Category(props) {
     setDeleteMode(!isDeleteMode);
   }
 
+  function putDisable() {
+    console.log("hallo-----------------------------------------------");
+    //let product = await Product.findOne({})
+    setIsDisabled(!isDisabled);
+  }
+
   return (
     <div>
       {isDeleteMode ? (
         <CategoryModeConfirmation
           {...props}
           onDisableDeleteMode={enableDeleteMode}
+          isDisabled={isDisabled}
         />
       ) : (
         <CategoryModeShow
           {...props}
           onEnableEditMode={enableEditMode}
-          isDeleteMode={isDeleteMode}
+          isDisabled={isDisabled}
           onDisableDeleteMode={enableDeleteMode}
+          onPutDisable={putDisable}
         />
       )}
     </div>
@@ -38,9 +48,11 @@ function CategoryModeShow({
   name,
   description,
   onDisableDeleteMode,
-  isDeleteMode,
+  isDisabled,
+  onPutDisable,
 }) {
   const router = useRouter();
+
   return (
     <div>
       <div>
@@ -52,8 +64,9 @@ function CategoryModeShow({
         <button
           size="small"
           onClick={() => {
+            onPutDisable();
+
             onDisableDeleteMode();
-            console.log(isDeleteMode);
           }}
         >
           Löschen
@@ -81,8 +94,10 @@ function CategoryModeConfirmation({
   name,
   description,
   onDisableDeleteMode,
+  isDisabled,
 }) {
   const { mutate } = useSWRConfig();
+  console.log(id);
 
   return (
     <div>
@@ -93,6 +108,7 @@ function CategoryModeConfirmation({
 
       <div>
         <button
+          disabled={isDisabled}
           type="button"
           size="small"
           onClick={async () => {
