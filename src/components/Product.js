@@ -2,7 +2,7 @@ import { useState } from "react";
 import { mutate, useSWRConfig } from "swr";
 import { useRouter } from "next/router";
 
-export default function Product({ props }) {
+export default function Product(props) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isDeleteMode, setDeleteMode] = useState(false);
 
@@ -135,7 +135,7 @@ function ProductModeConfirmation({
               method: "DELETE",
             });
             console.log(await response.json());
-            mutate("api/products");
+            mutate("/api/products");
           }}
         >
           Wirklich löschen

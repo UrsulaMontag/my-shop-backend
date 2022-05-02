@@ -6,7 +6,7 @@ export default async function getProducts() {
   await dbConnect();
 
   const products = await Product.find().populate("category");
-  console.log("-------------------------------hallo-----------------------");
+  console.log(products);
 
   return products.map(({ id, description, name, category, price, tags }) => {
     return {

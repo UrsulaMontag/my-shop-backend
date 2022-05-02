@@ -2,12 +2,12 @@ import useSWR from "swr";
 import Product from "./Product";
 
 export default function ProductGrid() {
-  const { data, error } = useSWR("api/products"); //serverseitig werden Fallbackdaten benutzt, clientseitig werden Daten geladen
+  const { data, error } = useSWR("/api/products"); //serverseitig werden Fallbackdaten benutzt, clientseitig werden Daten geladen
 
   if (error) {
     return <h3>Error: {error.message}</h3>;
   }
-
+  console.log(data, "--------------------------------------");
   return (
     <ul>
       {data.map((product) => {
