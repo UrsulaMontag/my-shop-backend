@@ -1,10 +1,11 @@
 import Product from "../models/Product";
 import { dbConnect } from "../lib/database";
+import Category from "../models/Category";
 
 export default async function getProducts() {
   await dbConnect();
 
-  const products = await Product.find();
+  const products = await Product.find().populate("category");
   console.log("-------------------------------hallo-----------------------");
 
   return products.map(({ id, description, name, category, price, tags }) => {
@@ -12,7 +13,7 @@ export default async function getProducts() {
       id,
       description,
       name,
-      category,
+      category: category.name,
       price,
       tags,
     };

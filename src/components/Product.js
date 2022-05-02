@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { mutate } from "swr";
+import { mutate, useSWRConfig } from "swr";
 import { useRouter } from "next/router";
 
-export default function Product(props) {
+export default function Product({ props }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isDeleteMode, setDeleteMode] = useState(false);
 
@@ -78,8 +78,14 @@ function ProductModeShow({
         <button
           onClick={() => {
             router.push({
-              pathname: "/create-product",
-              query: { curry: name },
+              pathname: "/edit-product",
+              query: {
+                nameValue: name,
+                descriptionValue: description,
+                priceValue: price,
+                tagsValue: tags,
+                categoryValue: category,
+              },
             });
           }}
         >
@@ -99,6 +105,8 @@ function ProductModeConfirmation({
   category,
   onDisableDeleteMode,
 }) {
+  const { mutate } = useSWRConfig();
+
   return (
     <div>
       <div>
@@ -127,7 +135,7 @@ function ProductModeConfirmation({
               method: "DELETE",
             });
             console.log(await response.json());
-            mutate("/api/products");
+            mutate("api/products");
           }}
         >
           Wirklich löschen
