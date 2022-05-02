@@ -10,7 +10,14 @@ const initialState = {
   categoryValue: "",
 };
 
-export default function ProductCreateForm({ curry }) {
+export default function ProductCreateForm({
+  id,
+  name,
+  description,
+  price,
+  tags,
+  category,
+}) {
   const [productInput, setProductInput] = useState(initialState);
   const { data, error } = useSWR("api/categories");
   const router = useRouter();
@@ -18,7 +25,17 @@ export default function ProductCreateForm({ curry }) {
   if (error) {
     return <h3>Error: {error.message}</h3>;
   }
-  console.log(curry);
+  if (id) {
+    setProductInput({
+      ...productInput,
+      name: name,
+      description: description,
+      price: price,
+      tags: tags,
+      category: category,
+    });
+  }
+  console.log(name, description);
   const submit = async (event) => {
     event.preventDefault();
 
@@ -39,86 +56,102 @@ export default function ProductCreateForm({ curry }) {
   return (
     <>
       <form onSubmit={submit}>
-        <input
-          required
-          type="text"
-          name="name"
-          label="name"
-          value={productInput.nameValue}
-          onChange={(event) => {
-            setProductInput({
-              ...productInput,
-              nameValue: event.target.value,
-            });
-            // setProductInput((prevState) => ({
-            //   productInput: {
-            //     // object that we want to update
-            //     ...prevState.productInput, // keep all other key-value pairs
-            //     nameValue: event.target.value, // update the value of specific key
-            //   },
-            // }));
-          }}
-        />
-
-        <input
-          required
-          type="text"
-          name="description"
-          label="description"
-          value={productInput.descriptionValue}
-          onChange={(event) => {
-            setProductInput({
-              ...productInput,
-              descriptionValue: event.target.value,
-            });
-          }}
-        />
-
-        <input
-          required
-          type="text"
-          name="price"
-          label="price"
-          value={productInput.priceValue}
-          onChange={(event) => {
-            if (!event.target.value.match(/[^0-9]/)) {
+        <label>
+          Produktname
+          <input
+            id="name"
+            required
+            type="text"
+            name="name"
+            label="name"
+            value={productInput.nameValue}
+            onChange={(event) => {
               setProductInput({
                 ...productInput,
-                priceValue: event.target.value,
+                nameValue: event.target.value,
               });
-            } else {
-              alert("Only numeric input allowed");
-            }
-          }}
-        />
+              // setProductInput((prevState) => ({
+              //   productInput: {
+              //     // object that we want to update
+              //     ...prevState.productInput, // keep all other key-value pairs
+              //     nameValue: event.target.value, // update the value of specific key
+              //   },
+              // }));
+            }}
+          />
+        </label>
 
-        <input
-          required
-          type="text"
-          name="category"
-          label="category"
-          value={productInput.categoryValue}
-          onChange={(event) => {
-            setProductInput({
-              ...productInput,
-              categoryValue: event.target.value,
-            });
-          }}
-        />
+        <label>
+          Produktbeschreibung
+          <input
+            required
+            type="text"
+            name="description"
+            label="description"
+            value={productInput.descriptionValue}
+            onChange={(event) => {
+              setProductInput({
+                ...productInput,
+                descriptionValue: event.target.value,
+              });
+            }}
+          />
+        </label>
 
-        <input
-          required
-          placeholder="Enter tags separated by comma"
-          type="text"
-          name="tags"
-          label="tags"
-          value={productInput.tagsValue}
-          onChange={(event) => {
-            const tagArray = event.target.value.split(",");
+        <label>
+          Preis/Stück
+          <input
+            required
+            type="text"
+            name="price"
+            label="price"
+            value={productInput.priceValue}
+            onChange={(event) => {
+              if (!event.target.value.match(/[^0-9]/)) {
+                setProductInput({
+                  ...productInput,
+                  priceValue: event.target.value,
+                });
+              } else {
+                alert("Only numeric input allowed");
+              }
+            }}
+          />
+        </label>
 
-            setProductInput({ ...productInput, tagsValue: tagArray });
-          }}
-        />
+        <label>
+          Kategorie
+          <input
+            required
+            type="text"
+            name="category"
+            label="category"
+            value={productInput.categoryValue}
+            onChange={(event) => {
+              setProductInput({
+                ...productInput,
+                categoryValue: event.target.value,
+              });
+            }}
+          />
+        </label>
+
+        <label>
+          Tags
+          <input
+            required
+            placeholder="Enter tags separated by comma"
+            type="text"
+            name="tags"
+            label="tags"
+            value={productInput.tagsValue}
+            onChange={(event) => {
+              const tagArray = event.target.value.split(",");
+
+              setProductInput({ ...productInput, tagsValue: tagArray });
+            }}
+          />
+        </label>
 
         <button type="submit">Submit</button>
       </form>

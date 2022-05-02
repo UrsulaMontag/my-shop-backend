@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { mutate } from "swr";
+import { mutate, useSWRConfig } from "swr";
 import { useRouter } from "next/router";
 
 export default function Product(props) {
@@ -78,8 +78,14 @@ function ProductModeShow({
         <button
           onClick={() => {
             router.push({
-              pathname: "/create-product",
-              query: { curry: name },
+              pathname: "/edit-product",
+              query: {
+                nameValue: name,
+                descriptionValue: description,
+                priceValue: price,
+                tagsValue: tags,
+                categoryValue: category,
+              },
             });
           }}
         >
@@ -99,6 +105,8 @@ function ProductModeConfirmation({
   category,
   onDisableDeleteMode,
 }) {
+  const { mutate } = useSWRConfig();
+
   return (
     <div>
       <div>

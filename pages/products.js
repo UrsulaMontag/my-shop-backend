@@ -11,7 +11,7 @@ export async function getStaticProps() {
       fallback: {
         // folgende Daten (aus lokaler JSON Datei) sollen als Fallback genutzt werden, wenn über Server folgende Route anfragt wird
         // (wenn über Browser Anfrage stattfindet, dann sollen Daten von der API geladen werden)
-        "api/products": [],
+        "/api/products": products,
       },
     },
   };

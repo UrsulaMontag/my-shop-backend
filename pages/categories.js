@@ -8,7 +8,7 @@ export async function getStaticProps() {
   return {
     props: {
       fallback: {
-        "api/categories": categories,
+        "/api/categories": categories,
       },
     },
   };
