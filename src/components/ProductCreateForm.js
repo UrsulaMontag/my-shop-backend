@@ -1,41 +1,32 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import useSWR from "swr";
-
-const initialState = {
-  descriptionValue: "",
-  priceValue: "",
-  nameValue: "",
-  tagsValue: "",
-  categoryValue: "",
-};
 
 export default function ProductCreateForm({
-  id,
-  name,
-  description,
-  price,
-  tags,
-  category,
+  categories: data,
+  products: editProducts,
 }) {
+  const initialState = {
+    descriptionValue: "",
+    priceValue: "",
+    nameValue: "",
+    tagsValue: "",
+    categoryValue: "",
+  };
   const [productInput, setProductInput] = useState(initialState);
-  const { data, error } = useSWR("api/categories");
+  //const { data, error } = useSWR("api/categories");
   const router = useRouter();
 
-  if (error) {
-    return <h3>Error: {error.message}</h3>;
-  }
-  if (id) {
-    setProductInput({
-      ...productInput,
-      name: name,
-      description: description,
-      price: price,
-      tags: tags,
-      category: category,
-    });
-  }
-  console.log(name, description);
+  // if (data.id) {
+  //   setProductInput({
+  //     ...productInput,
+  //     name: data.name,
+  //     description: data.description,
+  //     price: data.price,
+  //     tags: data.tags,
+  //     category: data.category,
+  //   });
+  // }
+  console.log(data);
   const submit = async (event) => {
     event.preventDefault();
 
@@ -123,9 +114,12 @@ export default function ProductCreateForm({
           Kategorie
           <input
             required
-            type="text"
-            name="category"
-            label="category"
+            id="categoryList"
+            list="category"
+            name="categoryList"
+          />
+          <datalist
+            id="category"
             value={productInput.categoryValue}
             onChange={(event) => {
               setProductInput({
@@ -133,7 +127,15 @@ export default function ProductCreateForm({
                 categoryValue: event.target.value,
               });
             }}
-          />
+          >
+            {data.map((category) => {
+              return (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              );
+            })}
+          </datalist>
         </label>
 
         <label>
@@ -158,24 +160,5 @@ export default function ProductCreateForm({
     </>
   );
 }
-/*  <input required id="categoryList" list="category" name="categoryList" />
-
-        <datalist
-          id="category"
-          value={productInput.categoryValue}
-          onChange={(event) => {
-            setProductInput({
-              ...productInput,
-              categoryValue: event.target.value,
-            });
-          }}
-        >
-          {data.map((category) => {
-            return (
-              <div key={category.id}>
-                <option value={category.name} />
-              </div>
-            );
-          })}
-        </datalist>
-*/
+/*
+ */

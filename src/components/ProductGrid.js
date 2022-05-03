@@ -7,7 +7,7 @@ export default function ProductGrid() {
   if (error) {
     return <h3>Error: {error.message}</h3>;
   }
-  console.log(data, "--------------------------------------");
+  //console.log(data, "--------------------------------------");
   return (
     <ul>
       {data.map((product) => {

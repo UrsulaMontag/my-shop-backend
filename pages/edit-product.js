@@ -1,25 +1,19 @@
 import { useRouter } from "next/router";
 import ProductCreateForm from "../src/components/ProductCreateForm";
+import getProducts from "../src/services/get-products";
 
-export default function EditPruduct({
-  id,
-  name,
-  description,
-  price,
-  tags,
-  category,
-}) {
+export async function getServerSideProps() {
+  const products = await getProducts();
+  return {
+    props: { products },
+  };
+}
+
+export default function EditProduct({ products }) {
   return (
     <>
       <h1>Editiere ein Produkt</h1>
-      <ProductCreateForm
-        id={id}
-        name={name}
-        description={description}
-        price={price}
-        tags={tags}
-        category={category}
-      />
+      <ProductCreateForm products={products} />
     </>
   );
 }
