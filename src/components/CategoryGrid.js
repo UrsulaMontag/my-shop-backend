@@ -3,7 +3,7 @@ import useSWR from "swr";
 
 export default function CategoryGrid() {
   const { data, error } = useSWR("/api/categories");
-
+  console.log(data);
   if (error) {
     return <h3>Error: {error.message}</h3>;
   }

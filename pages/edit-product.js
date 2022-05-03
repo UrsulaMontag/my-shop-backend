@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import ProductCreateForm from "../src/components/ProductCreateForm";
 import getProducts from "../src/services/get-products";
 

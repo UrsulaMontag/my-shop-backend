@@ -76,6 +76,7 @@ function CategoryModeShow({
             router.push({
               pathname: "/edit-category",
               query: {
+                id: id,
                 nameValue: name,
                 descriptionValue: description,
               },
@@ -110,7 +111,6 @@ function CategoryModeConfirmation({
         <button
           disabled={isDisabled}
           type="button"
-          size="small"
           onClick={async () => {
             const response = await fetch("/api/category/" + id, {
               method: "DELETE",
