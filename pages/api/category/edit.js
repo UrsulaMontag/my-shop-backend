@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const newCategoryData = JSON.parse(req.body);
     await dbConnect();
 
-    const newCategory = await Product.updateOne({
+    const newCategory = await Category.updateOne({
       id: newCategoryData.id,
       name: newCategoryData.name,
       description: newCategoryData.description,

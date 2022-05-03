@@ -80,6 +80,7 @@ function ProductModeShow({
             router.push({
               pathname: "/edit-product",
               query: {
+                id: id,
                 nameValue: name,
                 descriptionValue: description,
                 priceValue: price,

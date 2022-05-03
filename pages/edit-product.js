@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import ProductCreateForm from "../src/components/ProductCreateForm";
 
 export default function EditPruduct({
