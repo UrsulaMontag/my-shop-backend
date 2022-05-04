@@ -7,6 +7,7 @@ export default function CategoryGrid() {
   if (error) {
     return <h3>Error: {error.message}</h3>;
   }
+  console.log(data);
   return (
     <ul>
       {data.map((category) => {

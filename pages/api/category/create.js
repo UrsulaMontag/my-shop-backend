@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
     res.status(200).json({
       message: "category created",
-      category: newCategoryData,
+      category: newCategory,
     });
   } else {
     res.status(400).json({ error: "wrong method" });

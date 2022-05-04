@@ -1,24 +1,20 @@
 import ProductCreateForm from "../src/components/ProductCreateForm";
+import getCategories from "../src/services/get-categories";
+import getProducts from "../src/services/get-products";
 
-export default function EditPruduct({
-  id,
-  name,
-  description,
-  price,
-  tags,
-  category,
-}) {
+export async function getServerSideProps() {
+  const products = await getProducts();
+  const categories = await getCategories();
+  return {
+    props: { products, categories },
+  };
+}
+
+export default function EditProduct({ products, categories }) {
   return (
     <>
       <h1>Editiere ein Produkt</h1>
-      <ProductCreateForm
-        id={id}
-        name={name}
-        description={description}
-        price={price}
-        tags={tags}
-        category={category}
-      />
+      <ProductCreateForm products={products} categories={categories} />
     </>
   );
 }

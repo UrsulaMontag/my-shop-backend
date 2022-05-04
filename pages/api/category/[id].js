@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const deletedCategory = await Category.findByIdAndDelete(id);
     res.status(200).json({
       message: "category deleted",
-      card: deletedCategory,
+      category: deletedCategory,
     });
   } else {
     const singleCategory = await Category.findById(id);

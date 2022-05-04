@@ -28,40 +28,46 @@ export default function CategoryCreateForm() {
   return (
     <>
       <form onSubmit={submit}>
-        <input
-          required
-          type="text"
-          name="name"
-          label="name"
-          value={categoryInput.nameValue}
-          onChange={(event) => {
-            setCategoryInput({
-              ...categoryInput,
-              nameValue: event.target.value,
-            });
-            // setCategoryInput((prevState) => ({
-            //   categoryInput: {
-            //     // object that we want to update
-            //     ...prevState.categoryInput, // keep all other key-value pairs
-            //     nameValue: event.target.value, // update the value of specific key
-            //   },
-            // }));
-          }}
-        />
+        <label>
+          Kategoriename
+          <input
+            required
+            type="text"
+            name="name"
+            label="name"
+            value={categoryInput.nameValue}
+            onChange={(event) => {
+              setCategoryInput({
+                ...categoryInput,
+                nameValue: event.target.value,
+              });
+              // setCategoryInput((prevState) => ({
+              //   categoryInput: {
+              //     // object that we want to update
+              //     ...prevState.categoryInput, // keep all other key-value pairs
+              //     nameValue: event.target.value, // update the value of specific key
+              //   },
+              // }));
+            }}
+          />
+        </label>
 
-        <input
-          required
-          type="text"
-          name="description"
-          label="description"
-          value={categoryInput.descriptionValue}
-          onChange={(event) => {
-            setCategoryInput({
-              ...categoryInput,
-              descriptionValue: event.target.value,
-            });
-          }}
-        />
+        <label>
+          Kategoriebeschreibung
+          <input
+            required
+            type="text"
+            name="description"
+            label="description"
+            value={categoryInput.descriptionValue}
+            onChange={(event) => {
+              setCategoryInput({
+                ...categoryInput,
+                descriptionValue: event.target.value,
+              });
+            }}
+          />
+        </label>
 
         <button type="submit">Submit</button>
       </form>
