@@ -8,7 +8,7 @@ export async function getServerSideProps() {
   };
 }
 
-export default function CreatePruduct({ categories }) {
+export default function CreateProduct({ categories }) {
   console.log(categories);
   return (
     <>

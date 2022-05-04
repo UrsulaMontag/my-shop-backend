@@ -1,10 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function ProductCreateForm({
-  categories: data,
-  products: editProducts,
-}) {
+export default function ProductCreateForm({ categories: data }) {
   const initialState = {
     descriptionValue: "",
     priceValue: "",
@@ -26,7 +23,7 @@ export default function ProductCreateForm({
   //     category: data.category,
   //   });
   // }
-  console.log(data);
+  console.log(router, "_____________________________________");
   const submit = async (event) => {
     event.preventDefault();
 
